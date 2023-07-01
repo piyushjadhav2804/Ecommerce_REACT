@@ -1,11 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts, deleteProduct} from "../actions/productActions";
+import {
+  fetchProducts,
+  deleteProduct,
+  updateProduct,
+} from "../actions/productActions";
 import ProductSorter from "./ProductSorter";
 
 import "../styles/products.css";
 
 const Products = () => {
+
   const dispatch = useDispatch();
 
   const products = useSelector((state) => state.products.products);
@@ -20,6 +25,33 @@ const Products = () => {
   const handleDelete = (productId) => {
     dispatch(deleteProduct(productId));
     alert("Product deleted successfully!");
+  };
+
+  const [editProductId, setEditProductId] = useState(null);
+  const [editedProduct, setEditedProduct] = useState({});
+
+  const handleEdit = (productId) => {
+    setEditProductId(productId);
+    setEditedProduct(products.find((product) => product.id === productId));
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedProduct((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSaveChanges = () => {
+    dispatch(updateProduct(editedProduct));
+    alert("Product updated successfully!");
+    setEditProductId(null);
+  };
+
+  const handleCancelEdit = () => {
+    setEditProductId(null);
+    setEditedProduct({});
   };
 
   // Sort the products based on the sort criteria
@@ -41,7 +73,6 @@ const Products = () => {
 
   return (
     <div className="productsContainer">
-
       <ProductSorter />
       {sortedProducts.map((product) => (
         <div className="card" key={product.id}>
@@ -50,20 +81,67 @@ const Products = () => {
           </div>
 
           <div className="product-detail">
-            <h3 className="product-name">{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">Price: {product.price}</p>
+            {editProductId === product.id ? (
+              <>
+                <div className="inputContainer">
+                  <input
+                    type="text"
+                    name="name"
+                    value={editedProduct.name}
+                    onChange={handleInputChange}
+                    className="editInput"
+                  />
+                </div>
+                <div className="inputContainer">
+                  <input
+                    type="text"
+                    name="description"
+                    value={editedProduct.description}
+                    onChange={handleInputChange}
+                    className="editInput"
+                  />
+                </div>
+                <div className="inputContainer">
+                  <input
+                    type="number"
+                    name="price"
+                    value={editedProduct.price}
+                    onChange={handleInputChange}
+                    className="editInput"
+                  />
+                </div>
+                <div className="buttonContainer">
+                  <button className="saveButton" onClick={handleSaveChanges}>
+                    Save
+                  </button>
+                  <button className="cancelButton" onClick={handleCancelEdit}>
+                    Cancel
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <h3 className="product-name">{product.name}</h3>
+                <p className="product-description">{product.description}</p>
+                <p className="product-price">Price: {product.price}</p>
 
-            <div className="buttonContainer">
-              <button className="editButton">Edit</button>
-              <button
-                className="deleteButton"
-                onClick={() => handleDelete(product.id)}
-              >
-                Delete
-              </button>
-              <button className="addToCartButton">Add to Cart</button>
-            </div>
+                <div className="buttonContainer">
+                  <button
+                    className="editButton"
+                    onClick={() => handleEdit(product.id)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="deleteButton"
+                    onClick={() => handleDelete(product.id)}
+                  >
+                    Delete
+                  </button>
+                  <button className="addToCartButton">Add to Cart</button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       ))}
