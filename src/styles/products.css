@@ -1,0 +1,162 @@
+.productsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+.card {
+  display: flex;
+  width: 650px;
+  height: 250px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #ddd;
+  background-color: #fff;
+}
+
+.product-image {
+  flex: 2;
+}
+
+.product-detail {
+  flex: 3;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-top: -40px;
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px 0 0 8px;
+}
+
+.product-name {
+  font-size: 2.3rem;
+  font-weight: bolder;
+  margin-bottom: 0px;
+  color: #333;
+}
+
+.product-price {
+  font-size: 1.5rem;
+  color: #888;
+}
+
+.product-description {
+  font-size: 1rem;
+  color: #555;
+}
+
+.buttonContainer {
+  margin-top: auto;
+}
+
+.editButton,
+.deleteButton {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+
+.editButton {
+  background-color: #2196f3;
+  color: #fff;
+}
+
+.editButton:hover {
+  background-color: #177eb6;
+}
+
+.deleteButton {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+
+.deleteButton:hover {
+  background-color: #c9302c;
+}  
+
+.addToCartButton {
+  padding: 10px 20px;
+  border: none;
+  background-color: #4caf50;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.addToCartButton:hover {
+  background-color: #45a049;
+}
+
+.addToCartButton:active {
+  background-color: #3d8f3d;
+}
+
+
+/* Example button styles */
+
+
+.editButton {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.addToCartButton {
+  background-color: #27ae60;
+  color: #fff;
+}
+
+.saveButton,
+.cancelButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.saveButton {
+  background-color: #27ae60;
+  color: #fff;
+}
+
+.cancelButton {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.inputContainer {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.editInput {
+  width: 100%;
+    padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.editInput:focus {
+  outline: none;
+  border-color: #2196f3;
+}
+
