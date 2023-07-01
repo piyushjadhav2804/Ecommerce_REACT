@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../actions/productActions";
+import { fetchProducts, deleteProduct} from "../actions/productActions";
 import ProductSorter from "./ProductSorter";
 
 import "../styles/products.css";
@@ -16,6 +16,11 @@ const Products = () => {
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
+
+  const handleDelete = (productId) => {
+    dispatch(deleteProduct(productId));
+    alert("Product deleted successfully!");
+  };
 
   // Sort the products based on the sort criteria
   const sortedProducts = [...products].sort((a, b) => {
@@ -48,6 +53,17 @@ const Products = () => {
             <h3 className="product-name">{product.name}</h3>
             <p className="product-description">{product.description}</p>
             <p className="product-price">Price: {product.price}</p>
+
+            <div className="buttonContainer">
+              <button className="editButton">Edit</button>
+              <button
+                className="deleteButton"
+                onClick={() => handleDelete(product.id)}
+              >
+                Delete
+              </button>
+              <button className="addToCartButton">Add to Cart</button>
+            </div>
           </div>
         </div>
       ))}
