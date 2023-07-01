@@ -1,9 +1,12 @@
 import React from "react";
-import "../styles/navbar.css";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import "../styles/navbar.css";
 
 const Navbar = () => {
-  
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
   return (
     <div className="navbar">
       <div className="heading">
@@ -23,7 +26,7 @@ const Navbar = () => {
             src="https://img.icons8.com/?size=1x&id=59997&format=png"
             alt="cart_icon"
           />
-          <span className="cart-count">0</span>
+          {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
         </Link>
       </div>
     </div>

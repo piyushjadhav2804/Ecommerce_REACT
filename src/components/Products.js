@@ -5,18 +5,19 @@ import {
   deleteProduct,
   updateProduct,
 } from "../actions/productActions";
+
+import { addToCart, increaseQuantity } from "../actions/cartActions";
 import ProductSorter from "./ProductSorter";
 
 import "../styles/products.css";
 
 const Products = () => {
-
   const dispatch = useDispatch();
-
   const products = useSelector((state) => state.products.products);
   const loading = useSelector((state) => state.products.loading);
   const error = useSelector((state) => state.products.error);
   const sortBy = useSelector((state) => state.sort.sortBy);
+  const cartItems = useSelector((state) => state.cart.cartItems); // Add cartItems selector
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -54,6 +55,17 @@ const Products = () => {
     setEditedProduct({});
   };
 
+  const handleAddToCart = (product) => {
+    const existingCartItem = cartItems.find((item) => item.id === product.id);
+    if (existingCartItem) {
+      dispatch(increaseQuantity(product.id));
+    } else {
+      dispatch(addToCart(product));
+    }
+    alert("Product added to cart!");
+  };
+
+
   // Sort the products based on the sort criteria
   const sortedProducts = [...products].sort((a, b) => {
     if (sortBy === "price") {
@@ -75,7 +87,7 @@ const Products = () => {
     <div className="productsContainer">
       <ProductSorter />
       {sortedProducts.map((product) => (
-        <div className="card" key={product.id}>
+        <div className="card" key={product.productId}>
           <div className="product-image">
             <img className="image" src={product.image} alt={product.name} />
           </div>
@@ -138,7 +150,12 @@ const Products = () => {
                   >
                     Delete
                   </button>
-                  <button className="addToCartButton">Add to Cart</button>
+                  <button
+                    className="addToCartButton"
+                    onClick={() => handleAddToCart(product)}
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </>
             )}
