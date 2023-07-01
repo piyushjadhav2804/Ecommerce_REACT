@@ -1,0 +1,20 @@
+.sortButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.sortButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #ddd;
+  color: #333;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.sortButton:hover {
+  background-color: #ccc;
+}
