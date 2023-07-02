@@ -20,9 +20,14 @@ const Products = () => {
   const sortBy = useSelector((state) => state.sort.sortBy);
   const cartItems = useSelector((state) => state.cart.cartItems);
 
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+    if (isInitialLoad && products.length === 0) {
+      dispatch(fetchProducts());
+      setIsInitialLoad(false);
+    }
+  }, [dispatch, isInitialLoad, products]);
 
   const handleDelete = (productId) => {
     dispatch(deleteProduct(productId));
