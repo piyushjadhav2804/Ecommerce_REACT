@@ -8,6 +8,10 @@ import {
   UPDATE_PRODUCT_REQUEST,
   UPDATE_PRODUCT_FAILURE,
   UPDATE_PRODUCT_SUCCESS,
+  ADD_PRODUCT_REQUEST,
+  ADD_PRODUCT_FAILURE,
+  ADD_PRODUCT_SUCCESS,
+  ADD_PRODUCT,
 } from "../constants/productConstants";
 
 const initialState = {
@@ -21,6 +25,7 @@ const productReducer = (state = initialState, action) => {
     case FETCH_PRODUCTS_REQUEST:
     case DELETE_PRODUCT_REQUEST:
     case UPDATE_PRODUCT_REQUEST:
+    case ADD_PRODUCT_REQUEST:
       return {
         ...state,
         loading: true,
@@ -52,14 +57,27 @@ const productReducer = (state = initialState, action) => {
         ),
       };
 
-    case FETCH_PRODUCTS_FAILURE:
-    case DELETE_PRODUCT_FAILURE:
-    case UPDATE_PRODUCT_FAILURE:
+    case ADD_PRODUCT_SUCCESS:
       return {
         ...state,
         loading: false,
-        products: [],
+        products: [...state.products, action.payload],
+      };
+
+    case FETCH_PRODUCTS_FAILURE:
+    case DELETE_PRODUCT_FAILURE:
+    case UPDATE_PRODUCT_FAILURE:
+    case ADD_PRODUCT_FAILURE:
+      return {
+        ...state,
+        loading: false,
         error: action.payload,
+      };
+
+    case ADD_PRODUCT:
+      return {
+        ...state,
+        products: [...state.products, action.payload],
       };
 
     default:

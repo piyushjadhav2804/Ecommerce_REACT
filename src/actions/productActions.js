@@ -7,13 +7,16 @@ import {
   DELETE_PRODUCT_SUCCESS,
   UPDATE_PRODUCT_FAILURE,
   UPDATE_PRODUCT_REQUEST,
-  UPDATE_PRODUCT_SUCCESS
+  UPDATE_PRODUCT_SUCCESS,
+  ADD_PRODUCT_FAILURE,
+  ADD_PRODUCT_REQUEST,
+  ADD_PRODUCT_SUCCESS,
 } from "../constants/productConstants";
 
 // Action creator to fetch products
 export const fetchProducts = () => async (dispatch) => {
   try {
-    dispatch({ type: FETCH_PRODUCTS_REQUEST });
+    dispatch(fetchProductsRequest());
 
     // Perform the API call to fetch the products
     const response = await fetch(
@@ -21,9 +24,9 @@ export const fetchProducts = () => async (dispatch) => {
     );
     const data = await response.json();
 
-    dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: data });
+    dispatch(fetchProductsSuccess(data));
   } catch (error) {
-    dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: error.message });
+    dispatch(fetchProductsFailure(error.message));
   }
 };
 
@@ -47,7 +50,6 @@ export const fetchProductsSuccess = (products) => {
   };
 };
 
-
 // ACTION CREATORS to delete product
 export const deleteProduct = (productId) => async (dispatch) => {
   try {
@@ -66,7 +68,6 @@ export const deleteProduct = (productId) => async (dispatch) => {
     dispatch({ type: DELETE_PRODUCT_FAILURE, payload: error.message });
   }
 };
-
 
 // ACTION CREATORS to update product
 export const updateProduct = (product) => async (dispatch) => {
@@ -89,4 +90,35 @@ export const updateProduct = (product) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: UPDATE_PRODUCT_FAILURE, payload: error.message });
   }
+};
+
+// ACTION CREATORS to add a new product
+export const addProduct = (product) => async (dispatch) => {
+  try {
+    dispatch({ type: ADD_PRODUCT_REQUEST });
+
+    // Perform the API call to add the product
+    const response = await fetch(
+      "https://my-json-server.typicode.com/piyushjadhav2804/Ecom_database/products",
+      {
+        method: "POST",
+        body: JSON.stringify(product),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+
+    dispatch(addProductSuccess(data));
+  } catch (error) {
+    dispatch({ type: ADD_PRODUCT_FAILURE, payload: error.message });
+  }
+};
+
+export const addProductSuccess = (product) => {
+  return {
+    type: ADD_PRODUCT_SUCCESS,
+    payload: product,
+  };
 };

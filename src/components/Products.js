@@ -8,6 +8,7 @@ import {
 
 import { addToCart, increaseQuantity } from "../actions/cartActions";
 import ProductSorter from "./ProductSorter";
+import AddProductForm from "./AddProductForm";
 
 import "../styles/products.css";
 
@@ -17,7 +18,7 @@ const Products = () => {
   const loading = useSelector((state) => state.products.loading);
   const error = useSelector((state) => state.products.error);
   const sortBy = useSelector((state) => state.sort.sortBy);
-  const cartItems = useSelector((state) => state.cart.cartItems); // Add cartItems selector
+  const cartItems = useSelector((state) => state.cart.cartItems);
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -65,7 +66,6 @@ const Products = () => {
     alert("Product added to cart!");
   };
 
-
   // Sort the products based on the sort criteria
   const sortedProducts = [...products].sort((a, b) => {
     if (sortBy === "price") {
@@ -87,7 +87,7 @@ const Products = () => {
     <div className="productsContainer">
       <ProductSorter />
       {sortedProducts.map((product) => (
-        <div className="card" key={product.productId}>
+        <div className="card" key={product.id}>
           <div className="product-image">
             <img className="image" src={product.image} alt={product.name} />
           </div>
@@ -99,7 +99,7 @@ const Products = () => {
                   <input
                     type="text"
                     name="name"
-                    value={editedProduct.name}
+                    value={editedProduct.name || ""}
                     onChange={handleInputChange}
                     className="editInput"
                   />
@@ -108,7 +108,7 @@ const Products = () => {
                   <input
                     type="text"
                     name="description"
-                    value={editedProduct.description}
+                    value={editedProduct.description || ""}
                     onChange={handleInputChange}
                     className="editInput"
                   />
@@ -117,7 +117,7 @@ const Products = () => {
                   <input
                     type="number"
                     name="price"
-                    value={editedProduct.price}
+                    value={editedProduct.price || ""}
                     onChange={handleInputChange}
                     className="editInput"
                   />
@@ -162,8 +162,10 @@ const Products = () => {
           </div>
         </div>
       ))}
+
+      <AddProductForm />
     </div>
   );
 };
 
-export default Products;
+export default Products

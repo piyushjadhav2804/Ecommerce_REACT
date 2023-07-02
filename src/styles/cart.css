@@ -1,5 +1,6 @@
 .cart {
   margin: 20px;
+  background-color: #f2f2f2;
 }
 
 .cartTitle {
@@ -73,4 +74,15 @@
   color: #fff;
   padding: 10px 15px;
   cursor: pointer;
+}
+
+
+.cartSummary {
+  padding: 20px;
+  margin-top: 50px;
+  /* border: 1px solid #ccc; */
+  /* border-radius: 8px; */
+  background-color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: bold;
 }

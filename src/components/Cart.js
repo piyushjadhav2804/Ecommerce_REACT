@@ -38,6 +38,17 @@ const Cart = () => {
     setCartProducts(productsInCart);
   }, [cartItems, products]);
 
+  // Calculate the total number of products and total price of the cart
+  const totalProducts = cartItems.reduce(
+    (total, cartItem) => total + cartItem.quantity,
+    0
+  );
+
+  const totalPrice = cartProducts.reduce(
+    (total, cartProduct) => total + cartProduct.price * cartProduct.quantity,
+    0
+  );
+
   if (cartItems.length === 0) {
     return (
       <div className="cart">
@@ -87,6 +98,12 @@ const Cart = () => {
             </button>
           </div>
         ))}
+      </div>
+
+      {/* Display total products and total price */}
+      <div className="cartSummary">
+        <p className="totalProducts">Total Products: {totalProducts}</p>
+        <p className="totalPrice">Total Price: ${totalPrice}</p>
       </div>
     </div>
   );
