@@ -1,3 +1,40 @@
+# E-commerce Web Application
+
+This is a web application for an e-commerce store built using React and Redux. It allows users to browse products, add them to the cart, and perform various actions such as increasing or decreasing the quantity, removing products from the cart, and sorting products based on different criteria.
+
+## Installation
+
+1. Clone the repository: `git clone https://github.com/your-username/your-repo.git`
+2. Navigate to the project directory: `cd your-repo`
+3. Install dependencies: `npm install`
+
+## Usage
+
+1. Start the development server: `npm start`
+2. Open your browser and navigate to `http://localhost:3000` to view the application.
+3. Browse the products, add them to the cart, and perform various actions.
+
+## Project Structure
+
+- `src/`: Contains the source code of the application.
+  - `actions/`: Contains Redux action creators for managing the cart and products.
+  - `components/`: Contains React components for different parts of the application.
+  - `constants/`: Contains constants used in action creators and reducers.
+  - `reducers/`: Contains Redux reducers for managing the cart, products, and sorting.
+  - `styles/`: Contains CSS stylesheets for styling the components.
+  - `App.js`: The main component that renders the application.
+  - `index.js`: The entry point of the application.
+
+## Contributing
+
+Contributions are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
