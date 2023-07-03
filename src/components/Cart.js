@@ -1,3 +1,4 @@
+// import necessary dependencies
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import {
@@ -7,26 +8,32 @@ import {
 } from "../actions/cartActions";
 import "../styles/cart.css";
 
+// Cart component that renders the Cart details
 const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
   const products = useSelector((state) => state.products.products);
 
+  // state variables
+  const [cartProducts, setCartProducts] = useState([]);
+
+  // responsible for dispatching the removeFromCart action with the productId as a parameter to remove the product from the cart
   const handleRemoveFromCart = (productId) => {
     dispatch(removeFromCart(productId));
     alert("Product removed from cart!");
   };
 
+  // dispatches the increaseQuantity action with the productId as a parameter to increase the quantity of the product in the cart.
   const handleIncreaseQuantity = (productId) => {
     dispatch(increaseQuantity(productId));
   };
 
+  // dispatches the decreaseQuantity action with the productId as a parameter to decrease the quantity of the product in the cart.
   const handleDecreaseQuantity = (productId) => {
     dispatch(decreaseQuantity(productId));
   };
 
-  const [cartProducts, setCartProducts] = useState([]);
-
+  // used to update the cartProducts state whenever there are changes in the cartItems or products arrays.
   useEffect(() => {
     const productsInCart = cartItems.map((cartItem) => {
       const product = products.find((p) => p.id === cartItem.id);
@@ -44,11 +51,13 @@ const Cart = () => {
     0
   );
 
+  // calculates the the total price of all products added to the cart
   const totalPrice = cartProducts.reduce(
     (total, cartProduct) => total + cartProduct.price * cartProduct.quantity,
     0
   );
 
+  // if cart is empty, this JSX structure is rendered
   if (cartItems.length === 0) {
     return (
       <div className="cart">
@@ -58,6 +67,7 @@ const Cart = () => {
     );
   }
 
+  // If the cartItems array is not empty, it returns a JSX element representing the cart.
   return (
     <div className="cart">
       <h2 className="cartTitle">Cart</h2>

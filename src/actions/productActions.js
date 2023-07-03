@@ -1,3 +1,4 @@
+// import necessary dependecies
 import {
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_FAILURE,
@@ -13,9 +14,11 @@ import {
   ADD_PRODUCT_SUCCESS,
 } from "../constants/productConstants";
 
-// Action creator to fetch products
+// action creator that fetches the products from an API
 export const fetchProducts = () => async (dispatch) => {
   try {
+
+
     dispatch(fetchProductsRequest());
 
     // Perform the API call to fetch the products
@@ -30,12 +33,14 @@ export const fetchProducts = () => async (dispatch) => {
   }
 };
 
+// represents the start of the request to fetch products.
 export const fetchProductsRequest = () => {
   return {
     type: FETCH_PRODUCTS_REQUEST,
   };
 };
 
+// represents the failure of the request to fetch products.
 export const fetchProductsFailure = (error) => {
   return {
     type: FETCH_PRODUCTS_FAILURE,
@@ -43,6 +48,7 @@ export const fetchProductsFailure = (error) => {
   };
 };
 
+// represents the successful retrieval of products from the API.
 export const fetchProductsSuccess = (products) => {
   return {
     type: FETCH_PRODUCTS_SUCCESS,
@@ -116,6 +122,7 @@ export const addProduct = (product) => async (dispatch) => {
   }
 };
 
+// represents the successful addition of products.
 export const addProductSuccess = (product) => {
   return {
     type: ADD_PRODUCT_SUCCESS,

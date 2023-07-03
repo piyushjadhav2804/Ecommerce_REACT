@@ -1,3 +1,4 @@
+// import necessary dependencies
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -5,23 +6,29 @@ import {
   deleteProduct,
   updateProduct,
 } from "../actions/productActions";
-
 import { addToCart, increaseQuantity } from "../actions/cartActions";
 import ProductSorter from "./ProductSorter";
-import AddProductForm from "./AddProductForm";
 
 import "../styles/products.css";
 
+// Product components renders the product list fetched from API
 const Products = () => {
+  // uses the useDispatch hook to dispatch actions to the Redux store.
   const dispatch = useDispatch();
+
+  // uses the useSelector hook to extract from the Redux store state
   const products = useSelector((state) => state.products.products);
   const loading = useSelector((state) => state.products.loading);
   const error = useSelector((state) => state.products.error);
   const sortBy = useSelector((state) => state.sort.sortBy);
   const cartItems = useSelector((state) => state.cart.cartItems);
 
+  // state variables
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [editProductId, setEditProductId] = useState(null);
+  const [editedProduct, setEditedProduct] = useState({});
 
+  // used to fetch the products when the component is initially loaded.
   useEffect(() => {
     if (isInitialLoad && products.length === 0) {
       dispatch(fetchProducts());
@@ -29,14 +36,13 @@ const Products = () => {
     }
   }, [dispatch, isInitialLoad, products]);
 
+  // dispatches the deleteProduct action with the productId as an argument
   const handleDelete = (productId) => {
     dispatch(deleteProduct(productId));
     alert("Product deleted successfully!");
   };
 
-  const [editProductId, setEditProductId] = useState(null);
-  const [editedProduct, setEditedProduct] = useState({});
-
+  // These functions handle the editing functionality of the product.
   const handleEdit = (productId) => {
     setEditProductId(productId);
     setEditedProduct(products.find((product) => product.id === productId));
@@ -61,13 +67,21 @@ const Products = () => {
     setEditedProduct({});
   };
 
+  // triggered when an "Add to Cart" button is clicked
   const handleAddToCart = (product) => {
+    // checks if the product already exists in the cart by searching for an item with the same id
     const existingCartItem = cartItems.find((item) => item.id === product.id);
+    
+    // If the item exists, it dispatches the increaseQuantity action to increase the quantity of that item
     if (existingCartItem) {
       dispatch(increaseQuantity(product.id));
-    } else {
+    } 
+    
+    // dispatches the addToCart action to add the product to the cart.
+    else {
       dispatch(addToCart(product));
     }
+
     alert("Product added to cart!");
   };
 
@@ -88,6 +102,7 @@ const Products = () => {
     return <div>Error: {error}</div>;
   }
 
+  // JSX code that represents the structure and content of the Products component.
   return (
     <div className="productsContainer">
       <ProductSorter />
@@ -168,7 +183,6 @@ const Products = () => {
         </div>
       ))}
 
-      <AddProductForm />
     </div>
   );
 };

@@ -1,4 +1,6 @@
-// cartActions.js
+// These action creators are used to create actions that will be dispatched to the Redux store. 
+
+// import necessary dependecies
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
@@ -6,6 +8,7 @@ import {
   DECREASE_QUANTITY,
 } from "../constants/productConstants";
 
+// action creator that returns an action object to add a product to the cart
 export const addToCart = (product) => {
   return {
     type: ADD_TO_CART,
@@ -13,6 +16,7 @@ export const addToCart = (product) => {
   };
 };
 
+// action creator that returns an action object to remove a product from the cart
 export const removeFromCart = (productId) => {
   return {
     type: REMOVE_FROM_CART,
@@ -20,6 +24,7 @@ export const removeFromCart = (productId) => {
   };
 };
 
+// action creator that returns an action object to increase the quantity of a product in the cart
 export const increaseQuantity = (productId) => {
   return {
     type: INCREASE_QUANTITY,
@@ -27,6 +32,7 @@ export const increaseQuantity = (productId) => {
   };
 };
 
+// action creator that returns an action object to decrease the quantity of a product in the cart
 export const decreaseQuantity = (productId) => {
   return {
     type: DECREASE_QUANTITY,

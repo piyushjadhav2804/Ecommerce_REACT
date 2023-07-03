@@ -1,12 +1,16 @@
+// import necessary dependencies
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "../styles/navbar.css";
 
+// Navbar component renders Navbar of the application
 const Navbar = () => {
+
   const cartItems = useSelector((state) => state.cart.cartItems);
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
+  // JSX code that represents the structure and content of the Navbar component.
   return (
     <div className="navbar">
       <div className="heading">
@@ -17,7 +21,7 @@ const Navbar = () => {
         <Link to="/products" className="nav-link">
           Products
         </Link>
-        <Link to="/add-product" className="nav-link">
+        <Link to="/add-product" className="nav-link"> 
           Add a Product
         </Link>
 
