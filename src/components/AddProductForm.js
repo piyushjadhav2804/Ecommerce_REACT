@@ -58,7 +58,7 @@ const AddProductForm = () => {
 
   // JSX code that defines the form structure and elements to be rendered
   return (
-    <form className="form-container" onSubmit={handleSubmit}>
+    <form className="form-container" onSubmit={handleSubmit} autoComplete="off">
       <div className="input-field">
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" value={name} onChange={handleNameChange} />
